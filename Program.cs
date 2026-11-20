@@ -30,5 +30,12 @@ if (!string.Equals(app.Configuration["RENDER"], "true", StringComparison.Ordinal
 {
     app.UseHttpsRedirection();
 }
+app.MapGet("/", () => Results.Ok(new
+{
+    laboratorio = "Laboratorio 14",
+    tecnologia = ".NET 10",
+    estado = "En funcionamiento",
+    mensaje = "¡Bienvenido! El Laboratorio 14 está funcionando correctamente."
+}));
 app.MapControllers();
 app.Run();
