@@ -1,0 +1,29 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore
+        run: dotnet restore Lab08RonaldoCusi.csproj
+      - name: Build
+        run: dotnet build Lab08RonaldoCusi.csproj --configuration Release --no-restore
+      - name: Publish
+        run: dotnet publish Lab08RonaldoCusi.csproj --configuration Release --no-build --output ./published
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Lab14_RonaldoCusi
+          path: published/
+          if-no-files-found: error
